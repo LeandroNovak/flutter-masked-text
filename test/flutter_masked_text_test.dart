@@ -1,5 +1,5 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_masked_text/flutter_masked_text.dart';
+import 'package:flutter_test/flutter_test.dart';
 
 void main() {
   group('masked text', () {
@@ -153,6 +153,44 @@ void main() {
       controller.updateValue(123.45);
 
       expect(controller.text, '123,450');
+    });
+
+    test('null initial value must result in ""', () {
+      var controller = new MoneyMaskedTextController(initialValue: null);
+      expect(controller.text, '');
+    });
+
+    test('number value for null initial value must be 0.0', () {
+      var controller = new MoneyMaskedTextController(initialValue: null);
+      expect(controller.numberValue, 0.0);
+    });
+
+    test('leftSymbol "R\$ " and null initial value must result in ""', () {
+      var controller =
+          new MoneyMaskedTextController(leftSymbol: 'R\$ ', initialValue: null);
+      expect(controller.text, '');
+    });
+
+    test(
+        'number value for leftSymbol "R\$ " and null initial value must result in 0.0',
+        () {
+      var controller =
+          new MoneyMaskedTextController(leftSymbol: 'R\$ ', initialValue: null);
+      expect(controller.numberValue, 0.0);
+    });
+
+    test('rightSymbol " US\$" and null initial value must resut in ""', () {
+      var controller = new MoneyMaskedTextController(
+          rightSymbol: ' US\$', initialValue: null);
+      expect(controller.text, '');
+    });
+
+    test(
+        'number value for rightSymbol " US\$" and null initial value must resut in 0.0\$',
+        () {
+      var controller = new MoneyMaskedTextController(
+          rightSymbol: ' US\$', initialValue: null);
+      expect(controller.numberValue, 0.0);
     });
   });
 }
